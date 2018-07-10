@@ -16,22 +16,42 @@ function addToCart(itemName) {
 
 
 function viewCart() {
- let cartView = `In your cart, you have`
- for (var i = 0; i < cart.length; i++){
-   if (cart.length === 0) {
-    console.log(`Your cart is currently empty.`);
-   } else if (cart.length === 1) {
-   console.log(cartView += `${cart[i].itemName} at ${cart[i].itemPrice}`);
- } else {
-   let lastIndex = cart.length - 1; 
-   console.log(cartView += `${cart[i].itemName} at ${cart[i].itemPrice}, and ${cart[lastIndex].itemName} at ${cart[lastIndex].itemPrice}. `)
- }
- }
+   if (!cart.length) {
+   return 'Your shopping cart is empty.';
+   }
+  let whole = `In your cart, you have`
+   if (cart.length === 1) {
+     return whole += ` ${cart[0].itemName} at $${cart[0].itemPrice}.`;
+   }
+   let description = cart.reduce(function (whole, value, index) {
+     if (index === cart.length - 1) {
+        return whole += ` and ${value.itemName} at $${value.itemPrice}.`;
+      } else if (index < cart.length - 2) {
+        return whole += ` ${value.itemName} at $${value.itemPrice},`
+        } else {
+        return whole +=` ${value.itemName} at $${value.itemPrice},`;
+   }
+   }, whole
+   ); 
+   return description; 
 }
 
-function total() {}
+ 
+
+
+function total(cart) {
+  let newCart = [];
+let thisCart = cart.map(function(itemPrice) {
+  newCart.push(itemPrice)
+});
+  thisCart.reduce((a,b) => {
+    return a + b;
+  });
+  return newCart;
+}
 
 function removeFromCart(toBeRemoved) {}  
   
 function placeOrder(cardNumber){}
+ 
  
